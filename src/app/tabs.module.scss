@@ -1,0 +1,42 @@
+/* tabs.module.scss */
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+h1 {
+  font-family: 'Josefin Sans', cursive;
+}
+
+.tabbed-container {
+  display: flex;
+  height: 100vh; // Take up full viewport height
+  font-family: 'Poppins';
+
+  .tabs {
+    width: 15%; // Adjust as needed
+    background-color: #f0f0f0;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+
+    .tab {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &.active {
+        background-color: #ddd;
+      }
+    }
+  }
+
+  .tab-content {
+    width: 85%; // Adjust as needed
+    padding: 1rem;
+    overflow: auto;
+    display: flex; /* Add this line */
+    flex-direction: column; /* Add this line */
+    align-items: flex-start; /* Add this line */
+  }
+}
