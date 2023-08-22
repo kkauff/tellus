@@ -1,0 +1,52 @@
+.chat-history {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message {
+  padding: 8px;
+  border-radius: 8px;
+  width: fit-content;
+  max-width: 80%;
+}
+
+.user {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.bot {
+  background-color: #f0f0f0;
+  color: #333;
+  align-self: flex-start;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto; /* Push the input to the bottom */
+  padding: 16px; /* Add some padding for spacing */
+  background-color: #f0f0f0; /* Add a background color */
+  border-top: 1px solid #ddd; /* Add a separator line */
+  width: 100%;
+}
+
+.chat-input {
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.user-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+  font-size: 14px;
+}

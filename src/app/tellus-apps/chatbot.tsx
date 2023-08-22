@@ -1,36 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { converse } from '../../api/hfApi';
+import styles from './chatbot.module.scss';
+import { Button, Icon } from '@blueprintjs/core';
+
+interface Message {
+  text: string;
+  type: string;
+}
 
 const Chatbot = () => {
   const [loading, setLoading] = useState(false);
-  const [output, setOutput] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [userInput, setUserInput] = useState('');
 
-  const handleSubmit = async (event: any) => {
+  useEffect(() => {
+    if (messages.length > 0) {
+      setUserInput(messages[messages.length - 1].text);
+    }
+  }, [messages]);
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
+    const { value: input } = inputRef.current || {};
 
-    const input = event.target.elements.input.value;
+    if (!input) return;
+
+    setLoading(true);
+    setUserInput(input); // Store user input
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: input, type: 'user' },
+    ]);
+
     const response = await converse(input);
-    setOutput(response.generated_text);
+    const botMessage: Message = { text: response.generated_text, type: 'bot' };
+
+    setMessages((prevMessages) => [...prevMessages, botMessage]);
     setLoading(false);
+
+    if (inputRef.current) {
+      inputRef.current.value = ''; // Clear input after sending
+    }
   };
 
   return (
-    <div className="container al-c mt-3">
-      <h1>chatbot</h1>
-      <p>Ask me a question!</p>
-      <form className="gen-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="input"
-          placeholder="type your prompt here..."
-        />
-        <button type="submit">Generate</button>
-      </form>
-      <div>
-        {loading && <div className="loading">Loading...</div>}
-        {!loading && output && <div>{output}</div>}
+    <div className={`container ${styles['chatbot-container']}`}>
+      <div className={styles['chat-history']}>
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`${styles['message']} ${
+              message.type === 'user' ? styles['user'] : styles['bot']
+            }`}
+          >
+            {message.text}
+          </div>
+        ))}
+        {loading && (
+          <div className={`${styles['message']} ${styles['bot']}`}>
+            Loading...
+          </div>
+        )}
       </div>
+      <form className={styles['chat-input']} onSubmit={handleSubmit}>
+        <div className={styles['input-wrapper']}>
+          <input
+            type="text"
+            name="input"
+            ref={inputRef}
+            className={styles['user-input']}
+            placeholder="Type your message..."
+          />
+          <Button
+            icon={<Icon icon="send-message" />}
+            intent="primary"
+            type="submit"
+          />
+        </div>
+      </form>
     </div>
   );
 };

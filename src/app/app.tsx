@@ -9,8 +9,8 @@ import Chatbot from './tellus-apps/chatbot';
 
 export function App() {
   const tabs = [
-    { title: 'Artifex', component: <Artifex /> },
     { title: 'ChatBot', component: <Chatbot /> },
+    { title: 'Artifex', component: <Artifex /> },
   ];
 
   return (
