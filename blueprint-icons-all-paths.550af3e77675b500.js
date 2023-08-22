@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktellus=self.webpackChunktellus||[]).push([[104],{720:(e,t,n)=>{n.r(t),n.d(t,{IconSvgPaths16:()=>c,IconSvgPaths20:()=>o,getIconPaths:()=>a,iconNameToPathsRecordKey:()=>r});var s=n(764),c=n(627),o=n(632),u=n(389);function a(e,t){var n=(0,s.Ho)(e);return t===u.J.STANDARD?c[n]:o[n]}function r(e){return(0,s.Ho)(e)}}}]);
